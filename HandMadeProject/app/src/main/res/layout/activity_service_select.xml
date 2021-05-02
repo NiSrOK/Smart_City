@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceSelect">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/select_text"
+        android:layout_marginTop="50dp"
+        android:text="Выберите службу для обращения:"
+        android:textSize="?attr/userNameTextSize"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/service_1"
+        android:layout_centerHorizontal="true"
+        android:text="Служба 1"
+        android:background="?attr/userTextColor"
+        android:textSize="?attr/timeTextSize"
+        android:layout_marginTop="150dp"
+        android:layout_below="@id/select_text"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/service_2"
+        android:layout_centerHorizontal="true"
+        android:text="Служба 2"
+        android:background="?attr/userTextColor"
+        android:textSize="?attr/timeTextSize"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/service_1"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/service_3"
+        android:layout_centerHorizontal="true"
+        android:text="Служба 3"
+        android:background="?attr/userTextColor"
+        android:textSize="?attr/timeTextSize"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/service_2"
+        />
+
+</RelativeLayout>

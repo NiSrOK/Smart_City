@@ -1,0 +1,109 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="LightThemeMini" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:itemBackground">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="bgColor"> @color/White </item>
+        <item name="textColor"> @color/Black</item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 16dp</item>
+        <item name="userCordTextSize"> 9dp</item>
+        <item name="userMessageTextSize"> 16dp</item>
+        <item name="timeTextSize"> 14dp</item>
+    </style>
+
+    <style name="LightThemeMedium" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:itemBackground">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="bgColor"> @color/White </item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="textColor"> @color/Black</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 20dp</item>
+        <item name="userCordTextSize"> 11dp</item>
+        <item name="userMessageTextSize"> 20dp</item>
+        <item name="timeTextSize"> 18dp</item>
+    </style>
+
+    <style name="LightThemeLarge" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:itemBackground">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="bgColor"> @color/White </item>
+        <item name="textColor"> @color/Black</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 25dp</item>
+        <item name="userCordTextSize"> 14dp</item>
+        <item name="userMessageTextSize"> 25dp</item>
+        <item name="timeTextSize"> 22dp</item>
+    </style>
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+    <style name="DarkThemeMini" parent = "Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/Black</item>
+        <item name="android:itemBackground">@color/Black</item>
+        <item name="colorPrimaryDark">@color/Black</item>
+        <item name="colorAccent">@color/White</item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="bgColor"> @color/darkGrey </item>
+        <item name="textColor"> @color/White</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 16dp</item>
+        <item name="userCordTextSize"> 9dp</item>
+        <item name="userMessageTextSize"> 16dp</item>
+        <item name="timeTextSize"> 14dp</item>
+    </style>
+
+    <style name="DarkThemeMedium" parent = "Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/Black</item>
+        <item name="android:itemBackground">@color/Black</item>
+        <item name="colorPrimaryDark">@color/Black</item>
+        <item name="colorAccent">@color/White</item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="bgColor"> @color/darkGrey </item>
+        <item name="textColor"> @color/White</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 20dp</item>
+        <item name="userCordTextSize"> 11dp</item>
+        <item name="userMessageTextSize"> 20dp</item>
+        <item name="timeTextSize"> 18dp</item>
+    </style>
+
+    <style name="DarkThemeLarge" parent = "Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/Black</item>
+        <item name="android:itemBackground">@color/Black</item>
+        <item name="colorPrimaryDark">@color/Black</item>
+        <item name="colorAccent">@color/White</item>
+        <item name="itemBgColor"> @color/lightBlue</item>
+        <item name="bgColor"> @color/darkGrey </item>
+        <item name="textColor"> @color/White</item>
+        <item name="metaTextColor"> @color/Grey</item>
+        <item name="userTextColor"> @color/colorPrimary</item>
+        <item name="userNameTextSize"> 25dp</item>
+        <item name="userCordTextSize"> 14dp</item>
+        <item name="userMessageTextSize"> 25dp</item>
+        <item name="timeTextSize"> 22dp</item>
+    </style>
+
+
+</resources>
