@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Умный город</string>
+    <string name="home">Домашняя страница</string>
+    <string name="chat">Чат</string>
+    <string name="map">Карта</string>
+    <string name="send_button_name">Отправить</string>
+    <string name="edit_text_hint">Введите сообщение</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="photo">Прикрепить фото</string>
+    <string name="send">Отправить</string>
+    <string name="map_key">AIzaSyCb6OczIq_CtbQBfBnxN8BkSMr0eIcA0jc</string>
+    <string name="sign_out_warning">Удерживайте кнопку для выхода из аккаунта.</string>
+    <string name="welcome">Добро пожаловать:</string>
+    <string name="sign_out">Вы вышли из аккаунта.</string>
+</resources>
