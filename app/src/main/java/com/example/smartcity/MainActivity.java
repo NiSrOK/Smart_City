@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -32,12 +33,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     WebView web;
     public static final int SIGN_IN_REQUEST_CODE = 1;
 
+    private static final String TAG = "MyApp";
+
+    private String EMAIL;
+
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         chatButton = findViewById(R.id.open_chat);
@@ -49,23 +54,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         settingsButton = findViewById(R.id.open_settings);
         settingsButton.setOnClickListener(this);
-        settingsButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                    AuthUI.getInstance().signOut(MainActivity.this)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(MainActivity.this,
-                                            getString(R.string.sign_out),
-                                            Toast.LENGTH_LONG)
-                                            .show();
-                                    // Close activity
-                                    finish();
-                                }
-                            });
-                return false;
-            }
+
+        settingsButton.setOnLongClickListener(v -> {
+            Toast.makeText(settingsButton.getContext(), getString(R.string.sign_out), Toast.LENGTH_LONG).show();
+            finish();
+            return false;
         });
 
         web = findViewById(R.id.web);
@@ -98,8 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         web.setWebViewClient(webViewClient);
 
-        //проверка идентификации
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+        /*if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
                     //AuthUI.getInstance().createSignInIntentBuilder().build(),
@@ -111,10 +103,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             .getEmail(),
                     Toast.LENGTH_LONG)
                     .show();
+        }*/
+
+
+
+    }
+
+    public void checkUserAuthentication(){
+
+        if(getIntent().getExtras() != null){
+            Bundle arguments = getIntent().getExtras();
+            EMAIL = arguments.get("userEmail").toString();
+        }else {
+            startAuthentication();
         }
+    }
 
-
-
+    public void startAuthentication(){
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -145,15 +152,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onStart() {
+    public void onStart(){
         super.onStart();
-        //проверка идентификации
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            // Not signed in, launch the Sign In activity
-            Intent intent = new Intent(this, SignInActivity.class);
-            startActivity(intent);
-        }
+        //Аутентификация
+        Log.e(TAG, "Проверка аутентификации в onStart");
+        checkUserAuthentication();
     }
 }

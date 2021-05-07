@@ -80,19 +80,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             String stringMessage = textMessage.getText().toString();
             ChatMessage message = new ChatMessage(FirebaseAuth.getInstance().getCurrentUser().getEmail(), stringMessage);
             String uniqueID = UUID.randomUUID().toString();
-            mDatabase.child("messages").child("message "+uniqueID).setValue(message);
+            mDatabase.child("Messages").child("message "+uniqueID).setValue(message);
 
-            mDatabase.child("messages").child("message 305f77eb-1e6e-4e8f-8f23-107d4cd00233").child("messageUser").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                        Toast.makeText(ChatActivity.this, "Фэйл", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        String out = String.valueOf(task.getResult().getValue());
-                        Toast.makeText(ChatActivity.this, "Успех " + out, Toast.LENGTH_SHORT).show();
-                    }
+            mDatabase.child("Messages").child("message 305f77eb-1e6e-4e8f-8f23-107d4cd00233").child("messageUser").get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(ChatActivity.this, "Фэйл", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String out = String.valueOf(task.getResult().getValue());
+                    Toast.makeText(ChatActivity.this, "Успех " + out, Toast.LENGTH_SHORT).show();
                 }
             });
         }

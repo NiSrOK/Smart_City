@@ -8,6 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +21,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
 
     Button signInButton;
     Button registrationButton;
@@ -36,10 +43,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         registrationButton = findViewById(R.id.buttonRegistration);
         registrationButton.setOnClickListener(this);
-
     }
 
-    public void signIn(View view){
+    /*public void signIn(View view){
         EditText editEmail=findViewById(R.id.editTextTextEmailAddress);
         String email = editEmail.getText().toString();
 
@@ -67,10 +73,76 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+    }*/
 
+    public String toMd5(String in){
+        String codedIn = null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.reset();
+            digest.update(in.getBytes());
+            BigInteger bigInt = new BigInteger(1, digest.digest());
+            codedIn = bigInt.toString(16);
+        }catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return codedIn;
     }
 
     public void registration(View view){
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        EditText editEmail=findViewById(R.id.editTextTextEmailAddress);
+        String email = editEmail.getText().toString();
+
+
+        EditText editPassword = findViewById(R.id.editTextTextPassword);
+        String password = editPassword.getText().toString();
+
+        mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
+            if (String.valueOf(task.getResult().getValue()) == "null") {
+                Toast.makeText(SignInActivity.this, "Пользователь зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
+
+                mDatabase.child("Users").child(toMd5(email)).child("Password").setValue(toMd5(password));
+                mDatabase.child("Users").child(toMd5(email)).child("Email").setValue(email);
+
+            }
+            else {
+                //String out = String.valueOf(task.getResult().getValue());
+                Toast.makeText(SignInActivity.this, "Этот email уже зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    public void signIn(View view) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        EditText editEmail = findViewById(R.id.editTextTextEmailAddress);
+        String email = editEmail.getText().toString();
+
+        EditText editPassword = findViewById(R.id.editTextTextPassword);
+        String password = editPassword.getText().toString();
+
+        mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
+            if (String.valueOf(task.getResult().getValue()).equals(toMd5(password))) {
+
+                Toast.makeText(SignInActivity.this, "Добро пожаловать" + " " + email, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                intent.putExtra("userEmail", email);
+                startActivity(intent);
+                // Close activity
+                finish();
+
+            }
+            else {
+                //String out = String.valueOf(task.getResult().getValue());
+                Toast.makeText(SignInActivity.this, "Неверный email или пароль. Попробуйте еще раз.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    /*public void registration(View view){
         EditText editEmail=findViewById(R.id.editTextTextEmailAddress);
         String email = editEmail.getText().toString();
 
@@ -98,7 +170,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
-    }
+    }*/
 
     @Override
     public void onClick(View view){
