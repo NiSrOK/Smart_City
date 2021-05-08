@@ -31,11 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton mapButton;
     FloatingActionButton settingsButton;
     WebView web;
-    public static final int SIGN_IN_REQUEST_CODE = 1;
 
-    private static final String TAG = "MyApp";
+    private static final String TAG = "MainActivity";
 
-    private String EMAIL;
+    private String EMAIL = null;
 
     private FirebaseAuth mAuth;
 
@@ -104,17 +103,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.LENGTH_LONG)
                     .show();
         }*/
-
-
-
     }
 
     public void checkUserAuthentication(){
-
-        if(getIntent().getExtras() != null){
-            Bundle arguments = getIntent().getExtras();
-            EMAIL = arguments.get("userEmail").toString();
+        Log.e(TAG, "checkUserAuthentication()");
+        Intent intent = getIntent();
+        if(intent.getStringExtra("userEmail") != null){
+            Log.e(TAG, "EMAIL != null");
+            EMAIL = intent.getStringExtra("userEmail");
         }else {
+            Log.e(TAG, "EMAIL == null");
             startAuthentication();
         }
     }
@@ -130,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             web.goBack();
             return;
         }
+        this.finishAffinity();
         super.onBackPressed();
     }
 
@@ -138,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         if (v.getId() == R.id.open_chat) {
             Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("userEmail", EMAIL);
             startActivity(intent);
         }
 

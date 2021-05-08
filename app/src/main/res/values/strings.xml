@@ -11,5 +11,12 @@
     <string name="map_key">AIzaSyCb6OczIq_CtbQBfBnxN8BkSMr0eIcA0jc</string>
     <string name="sign_out_warning">Удерживайте кнопку для выхода из аккаунта.</string>
     <string name="welcome">Добро пожаловать:</string>
+    <string name="markerTitle">Добавить описание проблемы</string>
     <string name="sign_out">Вы вышли из аккаунта.</string>
+    <string name="manual1">1. Долгим нажатием укажите место с проблемой.</string>
+    <string name="manual2">2. Нажмите на появившийся маркер и добавьте описание проблемы.</string>
+    <string name="serviceSelect">Выберите службу</string>
+    <string name="service1">Служба 1</string>
+    <string name="service2">Служба 2</string>
+    <string name="service3">Служба 3</string>
 </resources>

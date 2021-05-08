@@ -78,14 +78,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             EditText textMessage = findViewById(R.id.text_message);
             String stringMessage = textMessage.getText().toString();
-            ChatMessage message = new ChatMessage(FirebaseAuth.getInstance().getCurrentUser().getEmail(), stringMessage);
+            Intent intent = getIntent();
+            ChatMessage message = new ChatMessage(intent.getStringExtra("userEmail"), stringMessage);
             String uniqueID = UUID.randomUUID().toString();
             mDatabase.child("Messages").child("message "+uniqueID).setValue(message);
 
             mDatabase.child("Messages").child("message 305f77eb-1e6e-4e8f-8f23-107d4cd00233").child("messageUser").get().addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(ChatActivity.this, "Фэйл", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String out = String.valueOf(task.getResult().getValue());

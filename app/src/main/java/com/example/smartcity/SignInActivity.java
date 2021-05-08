@@ -110,7 +110,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
             else {
                 //String out = String.valueOf(task.getResult().getValue());
-                Toast.makeText(SignInActivity.this, "Этот email уже зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Этот email уже зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -128,8 +128,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
             if (String.valueOf(task.getResult().getValue()).equals(toMd5(password))) {
 
-                Toast.makeText(SignInActivity.this, "Добро пожаловать" + " " + email, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                Toast.makeText(this, "Добро пожаловать" + " " + email, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("userEmail", email);
                 startActivity(intent);
                 // Close activity
@@ -138,7 +138,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
             else {
                 //String out = String.valueOf(task.getResult().getValue());
-                Toast.makeText(SignInActivity.this, "Неверный email или пароль. Попробуйте еще раз.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Неверный email или пароль. Попробуйте еще раз.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -180,5 +180,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.buttonRegistration) {
             registration(view);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+        super.onBackPressed();
     }
 }
