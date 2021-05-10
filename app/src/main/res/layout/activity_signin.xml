@@ -22,6 +22,12 @@
         android:ems="10"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/manualText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manualSignIn1" />
+
     <Button
         android:id="@+id/buttonSignIn"
         android:layout_width="match_parent"

@@ -11,14 +11,14 @@
         android:id="@+id/manualText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/manual1" />
+        android:text="@string/manualMap1" />
 
     <TextView
         android:id="@+id/manualText2"
         android:layout_below="@+id/manualText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/manual2" />
+        android:text="@string/manualMap2" />
 
     <fragment
         android:layout_below="@+id/manualText2"

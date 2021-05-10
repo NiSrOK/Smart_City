@@ -75,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }*/
 
-    public String toMd5(String in){
+    private String toMd5(String in){
         String codedIn = null;
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -89,7 +89,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         return codedIn;
     }
 
-    public void registration(View view){
+    private boolean checkValidRegistrationData(String email, String password){
+        String sub = "@";
+        if (email.indexOf(sub) != -1 && password.length() > 4){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    private void registration(){
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -101,8 +110,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String password = editPassword.getText().toString();
 
         mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
-            if (String.valueOf(task.getResult().getValue()) == "null") {
-                Toast.makeText(SignInActivity.this, "Пользователь зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
+            if (String.valueOf(task.getResult().getValue()).equals("null") && checkValidRegistrationData(email,password)) {
+                Toast.makeText(SignInActivity.this, getString(R.string.successRegistration), Toast.LENGTH_LONG).show();
 
                 mDatabase.child("Users").child(toMd5(email)).child("Password").setValue(toMd5(password));
                 mDatabase.child("Users").child(toMd5(email)).child("Email").setValue(email);
@@ -110,13 +119,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
             else {
                 //String out = String.valueOf(task.getResult().getValue());
-                Toast.makeText(this, "Этот email уже зарегистрирован. Авторизируйтесь", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.failRegistration), Toast.LENGTH_LONG).show();
             }
         });
 
     }
 
-    public void signIn(View view) {
+    private void signIn() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         EditText editEmail = findViewById(R.id.editTextTextEmailAddress);
@@ -128,7 +137,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
             if (String.valueOf(task.getResult().getValue()).equals(toMd5(password))) {
 
-                Toast.makeText(this, "Добро пожаловать" + " " + email, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.welcome) + " " + email, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("userEmail", email);
                 startActivity(intent);
@@ -138,7 +147,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
             else {
                 //String out = String.valueOf(task.getResult().getValue());
-                Toast.makeText(this, "Неверный email или пароль. Попробуйте еще раз.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.failAuthentication), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -175,10 +184,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view){
         if (view.getId() == R.id.buttonSignIn) {
-            signIn(view);
+            signIn();
         }
         if (view.getId() == R.id.buttonRegistration) {
-            registration(view);
+            registration();
         }
     }
     @Override

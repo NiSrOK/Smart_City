@@ -51,6 +51,8 @@ public class MapActivity extends AppCompatActivity
     private double lon;
     private static final float START_ZOOM = 11f;
 
+    private String EMAIL;
+
 
     //////////////////
     private static final String TAG = "MapActivity";
@@ -107,6 +109,10 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        final Intent intent = getIntent();
+        EMAIL = intent.getStringExtra("userEmail");
+
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -130,6 +136,7 @@ public class MapActivity extends AppCompatActivity
                     Intent intent = new Intent(MapActivity.this, ServiceSelect.class);
                     intent.putExtra("lati" ,Double.toString(marker.getPosition().latitude));
                     intent.putExtra("long" ,Double.toString(marker.getPosition().longitude));
+                    intent.putExtra("userEmail" ,EMAIL);
                     startActivity(intent);
                     map.setOnInfoWindowClickListener(null);
                     finish();

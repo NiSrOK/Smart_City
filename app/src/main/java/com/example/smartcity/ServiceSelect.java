@@ -13,7 +13,7 @@ public class ServiceSelect extends AppCompatActivity implements View.OnClickList
     Button service_2;
     Button service_3;
 
-    String lat, lon;
+    private String LATITUDE, LONGITUDE,EMAIL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,42 +28,33 @@ public class ServiceSelect extends AppCompatActivity implements View.OnClickList
         service_3.setOnClickListener(this);
 
         final Intent intent = getIntent();
-        final String LATITUDE = intent.getStringExtra("lati");
-        final String LONGITUDE = intent.getStringExtra("long");
+        LATITUDE = intent.getStringExtra("lati");
+        LONGITUDE = intent.getStringExtra("long");
+        EMAIL = intent.getStringExtra("userEmail");
+    }
 
-        lat = LATITUDE;
-        lon = LONGITUDE;
-
+    private void startDescription(String serviceType){
+        Intent intent = new Intent(this, Description.class);
+        intent.putExtra("serv", serviceType);
+        intent.putExtra("lat", LATITUDE);
+        intent.putExtra("lon", LONGITUDE);
+        intent.putExtra("userEmail", EMAIL);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onClick(View v){
-        /*if (v.getId() == R.id.service_1) {
-
-            Intent intent = new Intent(this, Discription.class);
-            intent.putExtra("serv", "#служба1");
-            intent.putExtra("lat", lat);
-            intent.putExtra("lon", lon);
-            startActivity(intent);
-            finish();
+        if (v.getId() == R.id.service_1) {
+            startDescription(getString(R.string.service1));
         }
 
         if (v.getId() == R.id.service_2) {
-            Intent intent = new Intent(this, Discription.class);
-            intent.putExtra("serv", "#служба2");
-            intent.putExtra("lat", lat);
-            intent.putExtra("lon", lon);
-            startActivity(intent);
-            finish();
+            startDescription(getString(R.string.service2));
         }
 
         if (v.getId() == R.id.service_3) {
-            Intent intent = new Intent(this, Discription.class);
-            intent.putExtra("serv", "#служба3");
-            intent.putExtra("lat", lat);
-            intent.putExtra("lon", lon);
-            startActivity(intent);
-            finish();
-        }*/
+            startDescription(getString(R.string.service3));
+        }
     }
 }

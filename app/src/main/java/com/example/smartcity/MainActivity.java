@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v.getId() == R.id.open_map) {
             Intent intent = new Intent(this, MapActivity.class);
+            intent.putExtra("userEmail", EMAIL);
             startActivity(intent);
         }
 

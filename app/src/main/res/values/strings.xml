@@ -13,10 +13,15 @@
     <string name="welcome">Добро пожаловать:</string>
     <string name="markerTitle">Добавить описание проблемы</string>
     <string name="sign_out">Вы вышли из аккаунта.</string>
-    <string name="manual1">1. Долгим нажатием укажите место с проблемой.</string>
-    <string name="manual2">2. Нажмите на появившийся маркер и добавьте описание проблемы.</string>
+    <string name="manualMap1">1. Долгим нажатием укажите место с проблемой.</string>
+    <string name="manualMap2">2. Нажмите на появившийся маркер и добавьте описание проблемы.</string>
     <string name="serviceSelect">Выберите службу</string>
     <string name="service1">Служба 1</string>
     <string name="service2">Служба 2</string>
     <string name="service3">Служба 3</string>
+    <string name="manualSignIn1">Пароль должен содержать минимум 5 символов.</string>
+    <string name="successRegistration">Пользователь зарегистрирован. Авторизируйтесь.</string>
+    <string name="failRegistration">Этот email уже зарегистрирован или введенные данные некорректны.</string>
+    <string name="failAuthentication">Неверный email или пароль. Попробуйте еще раз.</string>
+    <string name="inProcessing">В обработке.</string>
 </resources>

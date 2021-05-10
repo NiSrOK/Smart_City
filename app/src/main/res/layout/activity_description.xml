@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/disk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:layout_below="@id/service"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/coord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="Координаты проблемы:"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/coord"/>
+    <Button
+        android:id="@+id/btnPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickPhoto"
+        android:text="@string/photo"
+        android:layout_below="@+id/discription"
+        tools:ignore="OnClick"/>
+
+    <Button
+        android:id="@+id/send_disk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/discription"/>
+
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_below="@+id/btnPhoto">
+    </ImageView>
+
+    <EditText
+        android:id="@+id/discription"
+        android:layout_width="match_parent"
+        android:layout_below="@id/disk"
+        android:hint="Добавить описание проблемы"
+        tools:ignore="MissingConstraints"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

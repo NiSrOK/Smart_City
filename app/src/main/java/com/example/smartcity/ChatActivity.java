@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,8 +20,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -29,9 +35,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     Button sendMessage;
 
-    public void writeNewMessage(String name, String text) {
+
+    private static final String TAG = "ChatActivity";
+
+    /*public void writeNewMessage(String name, String text) {
         ChatMessage message = new ChatMessage(name, text);
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         sendMessage = findViewById(R.id.send_message);
         sendMessage.setOnClickListener(this);
+
+        //mDatabase.addChildEventListener(childEventListener);
 
         /*FloatingActionButton fab =
                 (FloatingActionButton)findViewById(R.id.fab);
@@ -72,6 +83,36 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    /*ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+            Log.e(TAG, "onChildAdded:" + dataSnapshot.getKey());
+
+            Object object = dataSnapshot.getValue(Object.class);
+            String json = new Gson().toJson(object);
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            Log.e(TAG, "onChildAdded:" + snapshot.getKey());
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            Log.e(TAG, "Error");
+        }
+    };*/
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.send_message) {
@@ -79,19 +120,24 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             EditText textMessage = findViewById(R.id.text_message);
             String stringMessage = textMessage.getText().toString();
             Intent intent = getIntent();
-            ChatMessage message = new ChatMessage(intent.getStringExtra("userEmail"), stringMessage);
+            //ChatMessage message = new ChatMessage(intent.getStringExtra("userEmail"), stringMessage);
             String uniqueID = UUID.randomUUID().toString();
-            mDatabase.child("Messages").child("message "+uniqueID).setValue(message);
+            //mDatabase.child("Messages").child("message "+uniqueID).setValue(message);
 
-            mDatabase.child("Messages").child("message 305f77eb-1e6e-4e8f-8f23-107d4cd00233").child("messageUser").get().addOnCompleteListener(task -> {
+
+            mDatabase.child("Messages").get().addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
+                    //Gson gson = new Gson();
+                    //JSONObject json = String.valueOf(task.getResult().getValue());
                     String out = String.valueOf(task.getResult().getValue());
-                    Toast.makeText(ChatActivity.this, "Успех " + out, Toast.LENGTH_SHORT).show();
+                    String json = new Gson().toJson(out);
+                    Log.e(TAG, "Список сообщений из бд " + json, task.getException());
+                    //Toast.makeText(ChatActivity.this, "Успех " + out, Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-}
+    }
