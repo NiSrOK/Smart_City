@@ -42,7 +42,7 @@ public class Description extends AppCompatActivity implements View.OnClickListen
     private final int PICK_IMAGE_REQUEST = 71;
 
     private static final int CAMERA_REQUEST_CODE = 1;
-    String urlAds = "000000000";
+    //String urlAds = "000000000";
 
 
     //private StorageReference storage;
@@ -140,7 +140,7 @@ public class Description extends AppCompatActivity implements View.OnClickListen
 
                                     EditText textField = findViewById(R.id.discription);
                                     if (textField.getText().toString().length() > 0) {
-                                        urlAds = uri.toString();
+                                        String urlAds = uri.toString();
                                         Toast.makeText(Description.this, "URL адрес " + urlAds, Toast.LENGTH_SHORT).show();
 
                                         FirebaseDatabase.getInstance().getReference().child("Messages").push().setValue(

@@ -14,6 +14,8 @@ public class Message {
     private String status;
     private long messageTime;
 
+    public  Message(){}
+
     public Message(String text, String userEmail, String imageUrl, String latitude, String longitude, String service) {
         this.text = text;
         this.userEmail = userEmail;

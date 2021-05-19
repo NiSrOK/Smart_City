@@ -152,9 +152,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
+    /*@Override
     public void onStart(){
         super.onStart();
+        //Аутентификация
+        Log.e(TAG, "Проверка аутентификации в onStart");
+        checkUserAuthentication();
+    }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         //Аутентификация
         Log.e(TAG, "Проверка аутентификации в onStart");
         checkUserAuthentication();

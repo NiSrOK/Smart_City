@@ -42,13 +42,15 @@ dependencies {
 
     implementation "com.google.android.gms:play-services-maps:17.0.1"
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
     //implementation 'com.google.firebase:firebase-database-ktx'
     //implementation 'com.google.firebase:firebase-storage-ktx'
     //implementation 'com.google.firebase:firebase-auth-ktx'
 
     // Firebase UI Library
-    implementation 'com.firebaseui:firebase-ui-database:7.1.1'
+    implementation 'com.firebaseui:firebase-ui-database:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
 
