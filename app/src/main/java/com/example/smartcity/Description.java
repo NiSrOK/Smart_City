@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.smartcity.pojo.Message;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -28,7 +27,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Description extends AppCompatActivity implements View.OnClickListener {
@@ -141,9 +139,10 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                                     EditText textField = findViewById(R.id.discription);
                                     if (textField.getText().toString().length() > 0) {
                                         String urlAds = uri.toString();
-                                        Toast.makeText(Description.this, "URL адрес " + urlAds, Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(Description.this, "URL адрес " + urlAds, Toast.LENGTH_SHORT).show();
 
-                                        FirebaseDatabase.getInstance().getReference().child("Messages").push().setValue(
+
+                                        FirebaseDatabase.getInstance().getReference().child("Messages").child(MD5.hash(email)).push().setValue(
                                                 /*new Message(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName(),
                                                         textField.getText().toString(), LATITUDE, LONGITUDE, serv, urlAds
                                                 )*/

@@ -2,26 +2,14 @@ package com.example.smartcity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -75,7 +63,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }*/
 
-    private String toMd5(String in){
+    /*private String toMd5(String in){
         String codedIn = null;
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -87,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
         return codedIn;
-    }
+    }*/
 
     private boolean checkValidRegistrationData(String email, String password){
         String sub = "@";
@@ -109,12 +97,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         EditText editPassword = findViewById(R.id.editTextTextPassword);
         String password = editPassword.getText().toString();
 
-        mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
+        mDatabase.child("Users").child(MD5.hash(email)).child("Password").get().addOnCompleteListener(task -> {
             if (String.valueOf(task.getResult().getValue()).equals("null") && checkValidRegistrationData(email,password)) {
                 Toast.makeText(SignInActivity.this, getString(R.string.successRegistration), Toast.LENGTH_LONG).show();
 
-                mDatabase.child("Users").child(toMd5(email)).child("Password").setValue(toMd5(password));
-                mDatabase.child("Users").child(toMd5(email)).child("Email").setValue(email);
+                mDatabase.child("Users").child(MD5.hash(email)).child("Password").setValue(MD5.hash(password));
+                mDatabase.child("Users").child(MD5.hash(email)).child("Email").setValue(email);
 
             }
             else {
@@ -134,8 +122,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         EditText editPassword = findViewById(R.id.editTextTextPassword);
         String password = editPassword.getText().toString();
 
-        mDatabase.child("Users").child(toMd5(email)).child("Password").get().addOnCompleteListener(task -> {
-            if (String.valueOf(task.getResult().getValue()).equals(toMd5(password))) {
+        mDatabase.child("Users").child(MD5.hash(email)).child("Password").get().addOnCompleteListener(task -> {
+            if (String.valueOf(task.getResult().getValue()).equals(MD5.hash(password))) {
 
                 Toast.makeText(this, getString(R.string.welcome) + " " + email, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MainActivity.class);
