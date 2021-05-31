@@ -6,14 +6,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/disk"
+        android:id="@+id/coordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
         android:layout_below="@id/service"
         tools:ignore="MissingConstraints" />
     <TextView
-        android:id="@+id/coord"
+        android:id="@+id/coordinatesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -24,14 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/coord"/>
+        android:layout_below="@id/coordinatesText"/>
     <Button
         android:id="@+id/btnPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClickPhoto"
         android:text="@string/photo"
-        android:layout_below="@+id/discription"
+        android:layout_below="@+id/description"
         tools:ignore="OnClick"/>
 
     <Button
@@ -40,12 +40,12 @@
         android:layout_height="wrap_content"
         android:text="@string/send"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/discription"/>
+        android:layout_below="@+id/description"/>
 
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:scaleType="fitCenter"
@@ -53,9 +53,9 @@
     </ImageView>
 
     <EditText
-        android:id="@+id/discription"
+        android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_below="@id/disk"
+        android:layout_below="@id/coordinates"
         android:hint="Добавить описание проблемы"
         tools:ignore="MissingConstraints"
         android:layout_height="wrap_content" />

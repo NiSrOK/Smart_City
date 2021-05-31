@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         style="?android:attr/buttonStyleSmall"
@@ -53,7 +54,6 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/open_chat"
         android:id="@+id/web"
         />
 </RelativeLayout>

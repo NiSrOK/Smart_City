@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryTransparent">#262196F3</color>
     <color name="White">#FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="lightBlue">#162196F3</color>
     <color name="Black">#000000</color>
     <color name="Pink">#D8638E</color>

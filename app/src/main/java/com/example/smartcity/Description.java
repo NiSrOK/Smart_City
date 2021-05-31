@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,11 +50,16 @@ public class Description extends AppCompatActivity implements View.OnClickListen
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    private static final String TAG = "DescriptionActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+        final Intent onCreateIntent = getIntent();
         setContentView(R.layout.activity_description);
 
         send = findViewById(R.id.send_disk);
@@ -65,12 +71,11 @@ public class Description extends AppCompatActivity implements View.OnClickListen
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        //получение данных с MapActivity
-        final Intent intent = getIntent();
-        final String LATITUDE = intent.getStringExtra("lat");
-        final String LONGITUDE = intent.getStringExtra("lon");
-        final String serv = intent.getStringExtra("serv");
-        final TextView disk = findViewById(R.id.disk);
+        TextView coordinates = findViewById(R.id.coordinates);
+        //вывод координат в description
+        coordinates.setText("Широта: " + onCreateIntent.getStringExtra("lat") + "\n" + "Долгота: " + onCreateIntent.getStringExtra("lon"));
+
+
 
 
         choose.setOnClickListener(new View.OnClickListener() {
@@ -84,21 +89,19 @@ public class Description extends AppCompatActivity implements View.OnClickListen
         });
 
 
-        //отправка сообщения в чат
-        disk.setText("Широта: " + LATITUDE + "\n" + "Долгота: " + LONGITUDE);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText textField = findViewById(R.id.discription);
+                EditText textField = findViewById(R.id.description);
                 if (textField.getText().toString().length() > 0) {
-                    uploadImage();
-
+                    sendMessageWithImage();
+                }
+                if((textField.getText().toString().length() > 0) || (filePath == null)){
+                    sendMessageWithoutImage();
                 }
             }
         });
-
-
     }
 
 
@@ -109,7 +112,32 @@ public class Description extends AppCompatActivity implements View.OnClickListen
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    public void uploadImage() {
+    public void sendMessageWithoutImage() {
+        Log.e(TAG, "sendMessageWithoutImage()");
+
+        final Intent intent = getIntent();
+        final String latitude = intent.getStringExtra("lat");
+        final String longitude = intent.getStringExtra("lon");
+        final String service = intent.getStringExtra("serv");
+        final String email = intent.getStringExtra("userEmail");
+        //final TextView description = findViewById(R.id.description);
+
+        EditText textField = findViewById(R.id.description);
+
+        FirebaseDatabase.getInstance().getReference().child("Messages").child(MD5.hash(email)).push().setValue(
+                                                /*new Message(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName(),
+                                                        textField.getText().toString(), LATITUDE, LONGITUDE, serv, urlAds
+                                                )*/
+
+                new Message(textField.getText().toString(), email, null, latitude, longitude, service)
+        );
+
+        Toast.makeText(Description.this, "Ваше сообщение отправлено без изображения", Toast.LENGTH_SHORT).show();
+        Intent intent2 = new Intent(Description.this, MainActivity.class);
+        finish();
+    }
+
+    public void sendMessageWithImage() {
 
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -134,9 +162,10 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                                     final String longitude = intent.getStringExtra("lon");
                                     final String service = intent.getStringExtra("serv");
                                     final String email = intent.getStringExtra("userEmail");
-                                    final TextView disk = findViewById(R.id.disk);
+                                    //final TextView description = findViewById(R.id.description);
 
-                                    EditText textField = findViewById(R.id.discription);
+                                    EditText textField = findViewById(R.id.description);
+
                                     if (textField.getText().toString().length() > 0) {
                                         String urlAds = uri.toString();
                                         //Toast.makeText(Description.this, "URL адрес " + urlAds, Toast.LENGTH_SHORT).show();
@@ -149,13 +178,12 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                                                 new Message(textField.getText().toString(), email, urlAds, latitude, longitude, service)
                                         );
                                     }
-                                    ///////////////////////
+
                                 }
                             });
-                            /////////////////////////////
-                            /////////////////////////////
 
-                            Toast.makeText(Description.this, "Ваше сообщение отправлено", Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(Description.this, "Ваше сообщение отправлено с изображением", Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent(Description.this, MainActivity.class);
                             finish();
                         }

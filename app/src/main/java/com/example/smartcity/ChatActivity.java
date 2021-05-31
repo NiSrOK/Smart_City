@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity{
                     mess_lon = v.findViewById(R.id.message_lon);
                     mess_serv = v.findViewById(R.id.message_serv);
                     mess_status = v.findViewById(R.id.message_status);
-                    mess_url = v.findViewById(R.id.message_url);
+                    //mess_url = v.findViewById(R.id.message_url);
                     mess_pict = v.findViewById(R.id.message_photo);
 
                     Log.e(TAG, "model " + model.getUserEmail());
@@ -88,9 +88,12 @@ public class ChatActivity extends AppCompatActivity{
                     mess_lat.setText(model.getLatitude());
                     mess_lon.setText(model.getLongitude());
                     mess_serv.setText(model.getService());
-                    mess_url.setText(model.getImageUrl());
+                    //mess_url.setText(model.getImageUrl());
                     mess_time.setText(DateFormat.format("dd.MM HH:mm", model.getMessageTime()));
-                    Picasso.get().load(model.getImageUrl()).into(mess_pict);
+                Log.e(TAG, "Image url = " + model.getImageUrl());
+                    if(model.getImageUrl()!=null){
+                        Picasso.get().load(model.getImageUrl()).into(mess_pict);
+                    }
                 }
         };
         listOfMessages.setAdapter(adapter);

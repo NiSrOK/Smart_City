@@ -32,7 +32,7 @@
         android:id="@+id/buttonSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Вход"/>
+        android:text="Вход" />
 
     <Button
         android:id="@+id/buttonRegistration"
