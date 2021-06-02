@@ -92,7 +92,7 @@ public class ChatActivity extends AppCompatActivity{
                     mess_time.setText(DateFormat.format("dd.MM HH:mm", model.getMessageTime()));
                 Log.e(TAG, "Image url = " + model.getImageUrl());
                     if(model.getImageUrl()!=null){
-                        Picasso.get().load(model.getImageUrl()).into(mess_pict);
+                        Picasso.get().load(model.getImageUrl()).resize(1000,1000).centerInside().into(mess_pict);
                     }
                 }
         };

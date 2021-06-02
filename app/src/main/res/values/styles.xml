@@ -2,7 +2,9 @@
 <resources>
     <style name="LightThemeMedium" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <!--
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        -->
         <item name="android:itemBackground">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
@@ -20,8 +22,10 @@
         <item name="android:textColorSecondary">@color/White</item>>
     </style>
 
+    <!--
     <style name="MyActionBar" parent="@android:style/Widget.AppCompact.Light.ActionBar">
         <item name="android:background">@color/Pink</item>
         <item name="android:textColorPrimary">@color/Black</item>
     </style>
+    -->
 </resources>

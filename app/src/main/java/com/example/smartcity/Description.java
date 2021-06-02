@@ -97,7 +97,7 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                 if (textField.getText().toString().length() > 0) {
                     sendMessageWithImage();
                 }
-                if((textField.getText().toString().length() > 0) || (filePath == null)){
+                if((textField.getText().toString().length() > 0) && (filePath == null)){
                     sendMessageWithoutImage();
                 }
             }
