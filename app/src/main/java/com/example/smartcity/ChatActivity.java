@@ -69,7 +69,7 @@ public class ChatActivity extends AppCompatActivity{
 
                     //Message i = (Message) listOfMessages.getItemAtPosition(position);
 
-                    mess_user_email = v.findViewById(R.id.message_user_email);
+                    //mess_user_email = v.findViewById(R.id.message_user_email);
                     mess_time = v.findViewById(R.id.message_time);
                     mess_text = v.findViewById(R.id.message_text);
                     mess_lat = v.findViewById(R.id.message_lat);
@@ -82,9 +82,9 @@ public class ChatActivity extends AppCompatActivity{
                     Log.e(TAG, "model " + model.getUserEmail());
                     Log.e(TAG, "EMAIL " + model.getUserEmail());
 
-                    mess_user_email.setText(model.getUserEmail());
-                    mess_status.setText(model.getStatus());
-                    mess_text.setText(model.getText());
+                    //mess_user_email.setText(model.getUserEmail());
+                    mess_status.setText(getString(R.string.status,model.getStatus()));
+                    mess_text.setText(getString(R.string.message,model.getText()));
                     mess_lat.setText(model.getLatitude());
                     mess_lon.setText(model.getLongitude());
                     mess_serv.setText(model.getService());

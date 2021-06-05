@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="userNameTextSize"> 20sp</dimen>
+    <dimen name="userCordTextSize"> 15sp</dimen>
+    <dimen name="userMessageTextSize"> 20sp</dimen>
+    <dimen name="timeTextSize"> 18sp</dimen>
+</resources>

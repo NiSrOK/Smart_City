@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="LightThemeMedium" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <!--
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-        -->
+
         <item name="android:itemBackground">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="bgColor"> @color/White </item>
+        <item name="bgColor"> @color/colorPrimaryTransparent </item>
         <item name="itemBgColor"> @color/lightBlue</item>
         <item name="textColor"> @color/Black</item>
-        <item name="metaTextColor"> @color/Grey</item>
-        <item name="android:textColorPrimary">@color/White</item>
+        <item name="metaTextColor"> @color/Black</item>
+        <!--<item name="android:textColorPrimary">@color/White</item>-->
         <item name="userTextColor"> @color/colorPrimary</item>
-        <item name="userNameTextSize"> 20dp</item>
-        <item name="userCordTextSize"> 11dp</item>
-        <item name="userMessageTextSize"> 20dp</item>
-        <item name="timeTextSize"> 18dp</item>
-        <item name="android:textColorSecondary">@color/White</item>>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>>
+
     </style>
 
-    <!--
-    <style name="MyActionBar" parent="@android:style/Widget.AppCompact.Light.ActionBar">
-        <item name="android:background">@color/Pink</item>
-        <item name="android:textColorPrimary">@color/Black</item>
-    </style>
-    -->
 </resources>

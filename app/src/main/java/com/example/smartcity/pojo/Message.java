@@ -23,7 +23,7 @@ public class Message {
         this.latitude = latitude;
         this.longitude = longitude;
         this.service = service;
-        this.status = "В обработке.";
+        this.status = "В обработке";
         this.messageTime = new Date().getTime();
     }
 

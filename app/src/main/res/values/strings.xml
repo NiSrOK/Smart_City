@@ -19,9 +19,10 @@
     <string name="service1">Служба 1</string>
     <string name="service2">Служба 2</string>
     <string name="service3">Служба 3</string>
+    <string name="status">Статус: %1$s</string>
+    <string name="message">Сообщение: %1$s</string>
     <string name="manualSignIn1">Пароль должен содержать минимум 5 символов.</string>
     <string name="successRegistration">Пользователь зарегистрирован. Авторизируйтесь.</string>
     <string name="failRegistration">Этот email уже зарегистрирован или введенные данные некорректны.</string>
     <string name="failAuthentication">Неверный email или пароль. Попробуйте еще раз.</string>
-    <string name="inProcessing">В обработке.</string>
 </resources>
