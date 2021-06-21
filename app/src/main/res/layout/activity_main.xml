@@ -18,7 +18,7 @@
         android:layout_marginLeft="10dp"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        android:src="@drawable/chat_icon"
+        android:src="@drawable/chat2_icon"
         app:fabCustomSize="100dp"
         app:maxImageSize="50dp" />
 
@@ -27,7 +27,7 @@
         android:layout_height="100dp"
         style="?android:attr/buttonStyleSmall"
         android:id="@+id/open_map"
-        android:src="@drawable/map_icon"
+        android:src="@drawable/map_2_icon"
         android:clickable = "true"
         android:layout_centerHorizontal="true"
         app:maxImageSize="50dp"
@@ -42,11 +42,11 @@
         app:maxImageSize="50dp"
         style="?android:attr/buttonStyleSmall"
         android:id="@+id/open_settings"
-        android:src="@drawable/settings_icon"
+        android:src="@drawable/exit_icon"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:clickable = "true"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/Red"
         app:fabCustomSize="100dp"
         android:layout_marginRight="10dp"
         />
