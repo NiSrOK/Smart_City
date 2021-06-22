@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String APP_PREFERENCES = "mySettings";
+    private SharedPreferences mSettings;
 
     FloatingActionButton chatButton;
     FloatingActionButton mapButton;
@@ -56,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         settingsButton.setOnLongClickListener(v -> {
             Toast.makeText(settingsButton.getContext(), getString(R.string.sign_out), Toast.LENGTH_LONG).show();
+
+            String APP_PREFERENCES_EMAIL = "email";
+            String APP_PREFERENCES_PASSWORD = "password";
+
+            mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(APP_PREFERENCES_PASSWORD, APP_PREFERENCES_PASSWORD);
+            editor.putString(APP_PREFERENCES_EMAIL, APP_PREFERENCES_EMAIL);
+            editor.apply();
             finish();
             return false;
         });
@@ -164,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         //Аутентификация
-        Log.e(TAG, "Проверка аутентификации в onStart");
+        Log.e(TAG, "Проверка аутентификации в onResume");
         checkUserAuthentication();
     }
 }

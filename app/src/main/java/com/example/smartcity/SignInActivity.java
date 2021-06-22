@@ -1,7 +1,10 @@
 package com.example.smartcity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +23,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     Button signInButton;
     Button registrationButton;
 
+    private static final String TAG = "SignInActivity";
+
+    public static final String APP_PREFERENCES = "mySettings";
+    private SharedPreferences mSettings;
+    private String APP_PREFERENCES_EMAIL = "email";
+    private String APP_PREFERENCES_PASSWORD = "password";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +41,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         registrationButton = findViewById(R.id.buttonRegistration);
         registrationButton.setOnClickListener(this);
+
+
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        /*SharedPreferences.Editor editor = mSettings.edit();
+        editor.clear();
+        editor.apply();*/
+
+        if(mSettings.contains(APP_PREFERENCES_EMAIL)) {
+            Log.e(TAG, "APP_PREFERENCES_EMAIL in PREFERENCES");
+            APP_PREFERENCES_EMAIL = mSettings.getString(APP_PREFERENCES_EMAIL, "email");
+        }
+        if(mSettings.contains(APP_PREFERENCES_PASSWORD)) {
+            APP_PREFERENCES_PASSWORD = mSettings.getString(APP_PREFERENCES_PASSWORD, "password");
+        }
+        if((!APP_PREFERENCES_PASSWORD.equals("password")) && (!APP_PREFERENCES_EMAIL.equals("email"))){
+            signInWithSharedPreferences(APP_PREFERENCES_EMAIL);
+        }
     }
 
     /*public void signIn(View view){
@@ -79,11 +107,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean checkValidRegistrationData(String email, String password){
         String sub = "@";
-        if (email.indexOf(sub) != -1 && password.length() > 4){
+        if (email.contains(sub) && password.length() > 4){
             return true;
         } else{
             return false;
         }
+    }
+
+    private void signInWithSharedPreferences(String email){
+        Toast.makeText(this, getString(R.string.welcome) + " " + email, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("userEmail", email);
+        startActivity(intent);
+        // Close activity
+        finish();
     }
 
     private void registration(){
@@ -129,6 +166,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("userEmail", email);
                 startActivity(intent);
+
+                //запись почты и пароля в SharedPreferences
+                Log.e(TAG, "Save preferences");
+                SharedPreferences.Editor editor = mSettings.edit();
+                Log.e(TAG, "password = " + password);
+                editor.putString(APP_PREFERENCES_PASSWORD, password);
+                Log.e(TAG, "email = " + email);
+                editor.putString(APP_PREFERENCES_EMAIL, email);
+                editor.apply();
+                Log.e(TAG, "Email " + mSettings.getString(APP_PREFERENCES_EMAIL, ""));
+                Log.e(TAG, "Password " + mSettings.getString(APP_PREFERENCES_PASSWORD, ""));
                 // Close activity
                 finish();
 
@@ -178,6 +226,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             registration();
         }
     }
+
     @Override
     public void onBackPressed() {
         this.finishAffinity();
