@@ -62,14 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         settingsButton.setOnLongClickListener(v -> {
             Toast.makeText(settingsButton.getContext(), getString(R.string.sign_out), Toast.LENGTH_LONG).show();
 
-            String APP_PREFERENCES_EMAIL = "email";
-            String APP_PREFERENCES_PASSWORD = "password";
-
             mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(APP_PREFERENCES_PASSWORD, APP_PREFERENCES_PASSWORD);
-            editor.putString(APP_PREFERENCES_EMAIL, APP_PREFERENCES_EMAIL);
+            editor.clear();
             editor.apply();
+
             finish();
             return false;
         });

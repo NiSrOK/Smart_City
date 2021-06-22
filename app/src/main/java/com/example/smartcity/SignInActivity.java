@@ -49,15 +49,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         editor.clear();
         editor.apply();*/
 
-        if(mSettings.contains(APP_PREFERENCES_EMAIL)) {
+        if((mSettings.contains(APP_PREFERENCES_EMAIL)) && (mSettings.contains(APP_PREFERENCES_PASSWORD))) {
             Log.e(TAG, "APP_PREFERENCES_EMAIL in PREFERENCES");
             APP_PREFERENCES_EMAIL = mSettings.getString(APP_PREFERENCES_EMAIL, "email");
-        }
-        if(mSettings.contains(APP_PREFERENCES_PASSWORD)) {
             APP_PREFERENCES_PASSWORD = mSettings.getString(APP_PREFERENCES_PASSWORD, "password");
-        }
-        if((!APP_PREFERENCES_PASSWORD.equals("password")) && (!APP_PREFERENCES_EMAIL.equals("email"))){
-            signInWithSharedPreferences(APP_PREFERENCES_EMAIL);
+            signInWithSharedPreferences(APP_PREFERENCES_EMAIL, APP_PREFERENCES_PASSWORD);
         }
     }
 
@@ -114,15 +110,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void signInWithSharedPreferences(String email){
-        Toast.makeText(this, getString(R.string.welcome) + " " + email, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("userEmail", email);
-        startActivity(intent);
-        // Close activity
-        finish();
-    }
-
     private void registration(){
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -148,6 +135,30 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+    }
+
+    private void signInWithSharedPreferences(String email, String password){
+        Toast.makeText(this, getString(R.string.sharedPreferencesSignIn) + " " + email, Toast.LENGTH_LONG).show();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(MD5.hash(email)).child("Password").get().addOnCompleteListener(task -> {
+            if (String.valueOf(task.getResult().getValue()).equals(MD5.hash(password))) {
+                Toast.makeText(this, getString(R.string.welcome) + " " + email, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("userEmail", email);
+                startActivity(intent);
+                // Close activity
+                finish();
+            }
+            else {
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.clear();
+                editor.apply();
+
+                //String out = String.valueOf(task.getResult().getValue());
+                Toast.makeText(this, getString(R.string.failAuthentication), Toast.LENGTH_LONG).show();
+                recreate();
+            }
+        });
     }
 
     private void signIn() {
