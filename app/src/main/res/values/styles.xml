@@ -2,17 +2,19 @@
 <resources>
     <style name="LightThemeMedium" parent="Theme.AppCompat.Light">
 
-        <item name="android:itemBackground">@color/colorPrimary</item>
+        //Цвет шапки приложения
         <item name="colorPrimary">@color/colorPrimary</item>
+        //Цвет верхней шапки(время, статус сети, заряд)
         <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="bgColor"> @color/colorPrimaryTransparent </item>
+        <!--<item name="android:itemBackground">@color/colorPrimary</item>!-->
+        <!--<item name="colorAccent">@color/colorPrimary</item>!-->
+        <!--<item name="bgColor"> @color/colorPrimaryTransparent </item>
         <item name="itemBgColor"> @color/lightBlue</item>
         <item name="textColor"> @color/Black</item>
-        <item name="metaTextColor"> @color/Black</item>
+        <item name="metaTextColor"> @color/Black</item>!-->
         <!--<item name="android:textColorPrimary">@color/White</item>-->
-        <item name="userTextColor"> @color/colorPrimary</item>
-        <item name="android:textColorSecondary">@color/colorPrimary</item>>
+        <!--<item name="userTextColor"> @color/colorPrimary</item>!-->
+        <!--<item name="android:textColorSecondary">@color/colorPrimary</item>>!-->
 
     </style>
 
