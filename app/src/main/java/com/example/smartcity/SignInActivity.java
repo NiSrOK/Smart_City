@@ -18,12 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //private FirebaseAuth mAuth;
-
     Button signInButton;
     Button registrationButton;
-
-    private static final String TAG = "SignInActivity";
 
     public static final String APP_PREFERENCES = "mySettings";
     private SharedPreferences mSettings;
@@ -42,64 +38,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         registrationButton = findViewById(R.id.buttonRegistration);
         registrationButton.setOnClickListener(this);
 
-
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        /*SharedPreferences.Editor editor = mSettings.edit();
-        editor.clear();
-        editor.apply();*/
 
         if((mSettings.contains(APP_PREFERENCES_EMAIL)) && (mSettings.contains(APP_PREFERENCES_PASSWORD))) {
-            Log.e(TAG, "APP_PREFERENCES_EMAIL in PREFERENCES");
             APP_PREFERENCES_EMAIL = mSettings.getString(APP_PREFERENCES_EMAIL, "email");
             APP_PREFERENCES_PASSWORD = mSettings.getString(APP_PREFERENCES_PASSWORD, "password");
             signInWithSharedPreferences(APP_PREFERENCES_EMAIL, APP_PREFERENCES_PASSWORD);
         }
     }
-
-    /*public void signIn(View view){
-        EditText editEmail=findViewById(R.id.editTextTextEmailAddress);
-        String email = editEmail.getText().toString();
-
-        EditText editPassword = findViewById(R.id.editTextTextPassword);
-        String password = editPassword.getText().toString();
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignInActivity.this, "Успешный вход",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            // Close activity
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignInActivity.this, "Ошибка входа",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
-
-    /*private String toMd5(String in){
-        String codedIn = null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.reset();
-            digest.update(in.getBytes());
-            BigInteger bigInt = new BigInteger(1, digest.digest());
-            codedIn = bigInt.toString(16);
-        }catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return codedIn;
-    }*/
 
     private boolean checkValidRegistrationData(String email, String password){
         String sub = "@";
@@ -130,7 +77,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             }
             else {
-                //String out = String.valueOf(task.getResult().getValue());
                 Toast.makeText(this, getString(R.string.failRegistration), Toast.LENGTH_LONG).show();
             }
         });
@@ -154,7 +100,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 editor.clear();
                 editor.apply();
 
-                //String out = String.valueOf(task.getResult().getValue());
                 Toast.makeText(this, getString(R.string.failAuthentication), Toast.LENGTH_LONG).show();
                 recreate();
             }
@@ -179,54 +124,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
 
                 //запись почты и пароля в SharedPreferences
-                Log.e(TAG, "Save preferences");
                 SharedPreferences.Editor editor = mSettings.edit();
-                Log.e(TAG, "password = " + password);
                 editor.putString(APP_PREFERENCES_PASSWORD, password);
-                Log.e(TAG, "email = " + email);
                 editor.putString(APP_PREFERENCES_EMAIL, email);
                 editor.apply();
-                Log.e(TAG, "Email " + mSettings.getString(APP_PREFERENCES_EMAIL, ""));
-                Log.e(TAG, "Password " + mSettings.getString(APP_PREFERENCES_PASSWORD, ""));
                 // Close activity
                 finish();
 
             }
             else {
-                //String out = String.valueOf(task.getResult().getValue());
                 Toast.makeText(this, getString(R.string.failAuthentication), Toast.LENGTH_LONG).show();
             }
         });
     }
-    /*public void registration(View view){
-        EditText editEmail=findViewById(R.id.editTextTextEmailAddress);
-        String email = editEmail.getText().toString();
-
-        EditText editPassword = findViewById(R.id.editTextTextPassword);
-        String password = editPassword.getText().toString();
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignInActivity.this, "Успешная регистрация",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            // Close activity
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignInActivity.this, "Ошибка регистрации",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
 
     @Override
     public void onClick(View view){

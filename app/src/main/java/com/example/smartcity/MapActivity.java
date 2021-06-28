@@ -53,20 +53,6 @@ public class MapActivity extends AppCompatActivity
 
     private String EMAIL;
 
-
-    //////////////////
-    private static final String TAG = "MapActivity";
-    //////////////////
-
-    ImageButton locationButton;
-
-    private FusedLocationProviderClient fusedLocationClient;
-
-    private boolean locationPermissionGranted;
-
-    // The entry point to the Fused Location Provider.
-    private FusedLocationProviderClient fusedLocationProviderClient;
-
     /**
      * Request code for location permission request.
      *
@@ -80,17 +66,6 @@ public class MapActivity extends AppCompatActivity
      */
     private boolean permissionDenied = false;
 
-    // The geographical location where the device is currently located. That is, the last-known
-    // location retrieved by the Fused Location Provider.
-    private Location lastKnownLocation;
-
-
-    public void setCoordinates(Location location) {
-        lat = location.getLongitude();
-        lon = location.getLatitude();
-    }
-
-
     public void defaultLocation() {
         lat = 56.281228;
         lon = 43.945257;
@@ -100,7 +75,6 @@ public class MapActivity extends AppCompatActivity
     }
 
     private void moveCamera(LatLng latLng, float zoom, String title) {
-        Log.e(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
@@ -159,18 +133,13 @@ public class MapActivity extends AppCompatActivity
             if (map != null) {
                 map.setMyLocationEnabled(true);
             }
-        } else {
-            Log.e(TAG, "Permission is missing");
-            // Permission to access the location is missing. Show rationale and request permission
-            /*PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);*/
         }
     }
 
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -202,19 +171,10 @@ public class MapActivity extends AppCompatActivity
         super.onResumeFragments();
         if (permissionDenied) {
             // Permission was not granted, display error dialog.
-            Log.e(TAG, "PermissionError");
             //showMissingPermissionError();
             permissionDenied = false;
         }
     }
-
-    /**
-     * Displays a dialog with error message explaining that the location permission is missing.
-     */
-    /*private void showMissingPermissionError() {
-        PermissionUtils.PermissionDeniedDialog
-                .newInstance(true).show(getSupportFragmentManager(), "dialog");
-    }*/
 
     public boolean hasPermission(String permission)
     {

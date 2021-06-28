@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity{
 
-    private static final String TAG = "ChatActivity";
     private static String EMAIL;
     FirebaseListAdapter<Message> adapter;
     ArrayList<Message> arrayList;
@@ -48,49 +47,28 @@ public class ChatActivity extends AppCompatActivity{
 
 
     private void displayAllMessages() {
-        Log.e(TAG, "In displayAllMessages");
         final ListView listOfMessages = findViewById(R.id.list_of_messages);
-        /*Query query = FirebaseDatabase.getInstance().getReference().child("Messages");
-        FirebaseListOptions<Message> options =
-                new FirebaseListOptions.Builder<Message>()
-                        .setQuery(query, Message.class)
-                        .setLayout(R.layout.item_message)
-                        .build();
-        adapter = new FirebaseListAdapter<Message>(options){*/
-        //Log.e(TAG,FirebaseDatabase.getInstance().getReference().child("Messages").toString());
-        Log.e(TAG, "Hash "+MD5.hash(EMAIL));
         adapter = new FirebaseListAdapter<Message>(this, Message.class, R.layout.item_message, FirebaseDatabase.getInstance().getReference().child("Messages").child(MD5.hash(EMAIL))) {
             @Override
             protected void populateView(View v, Message model, int position) {
-                    Log.e(TAG, "In populateView");
-                    TextView mess_user_email, mess_time, mess_text, mess_lat, mess_lon, mess_serv, mess_url, mess_status;
+                    TextView mess_time, mess_text, mess_lat, mess_lon, mess_serv, mess_status;
                     ImageView mess_pict;
 
-
-                    //Message i = (Message) listOfMessages.getItemAtPosition(position);
-
-                    //mess_user_email = v.findViewById(R.id.message_user_email);
                     mess_time = v.findViewById(R.id.message_time);
                     mess_text = v.findViewById(R.id.message_text);
                     mess_lat = v.findViewById(R.id.message_lat);
                     mess_lon = v.findViewById(R.id.message_lon);
                     mess_serv = v.findViewById(R.id.message_serv);
                     mess_status = v.findViewById(R.id.message_status);
-                    //mess_url = v.findViewById(R.id.message_url);
                     mess_pict = v.findViewById(R.id.message_photo);
 
-                    Log.e(TAG, "model " + model.getUserEmail());
-                    Log.e(TAG, "EMAIL " + model.getUserEmail());
-
-                    //mess_user_email.setText(model.getUserEmail());
                     mess_status.setText(getString(R.string.status,model.getStatus()));
                     mess_text.setText(getString(R.string.message,model.getText()));
                     mess_lat.setText(model.getLatitude());
                     mess_lon.setText(model.getLongitude());
                     mess_serv.setText(model.getService());
-                    //mess_url.setText(model.getImageUrl());
                     mess_time.setText(DateFormat.format("dd.MM HH:mm", model.getMessageTime()));
-                Log.e(TAG, "Image url = " + model.getImageUrl());
+
                     if(model.getImageUrl()!=null){
                         Picasso.get().load(model.getImageUrl()).resize(1000,1000).centerInside().into(mess_pict);
                     }

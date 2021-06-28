@@ -1,5 +1,6 @@
 package com.example.smartcity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,19 +41,10 @@ public class Description extends AppCompatActivity implements View.OnClickListen
 
     private final int PICK_IMAGE_REQUEST = 71;
 
-    private static final int CAMERA_REQUEST_CODE = 1;
-    //String urlAds = "000000000";
-
-
-    //private StorageReference storage;
-
-    //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
 
-    private static final String TAG = "DescriptionActivity";
-
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +58,6 @@ public class Description extends AppCompatActivity implements View.OnClickListen
         choose = findViewById(R.id.btnPhoto);
 
         imageView = findViewById(R.id.ivPhoto);
-        //storage = FirebaseStorage.getInstance().getReference();
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -82,9 +73,6 @@ public class Description extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 chooseImage();
-
-                //Intent intent = new Intent((MediaStore.ACTION_IMAGE_CAPTURE));
-                //startActivityForResult(intent, CAMERA_REQUEST_CODE);
             }
         });
 
@@ -113,26 +101,19 @@ public class Description extends AppCompatActivity implements View.OnClickListen
     }
 
     public void sendMessageWithoutImage() {
-        Log.e(TAG, "sendMessageWithoutImage()");
-
         final Intent intent = getIntent();
         final String latitude = intent.getStringExtra("lat");
         final String longitude = intent.getStringExtra("lon");
         final String service = intent.getStringExtra("serv");
         final String email = intent.getStringExtra("userEmail");
-        //final TextView description = findViewById(R.id.description);
 
         EditText textField = findViewById(R.id.description);
 
         FirebaseDatabase.getInstance().getReference().child("Messages").child(MD5.hash(email)).push().setValue(
-                                                /*new Message(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName(),
-                                                        textField.getText().toString(), LATITUDE, LONGITUDE, serv, urlAds
-                                                )*/
-
                 new Message(textField.getText().toString(), email, null, latitude, longitude, service)
         );
 
-        Toast.makeText(Description.this, "Ваше сообщение отправлено без изображения", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Description.this, getString(R.string.successSending), Toast.LENGTH_LONG).show();
         Intent intent2 = new Intent(Description.this, MainActivity.class);
         finish();
     }
@@ -151,8 +132,6 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            ////////////////////////
-                            ////////////////////////
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -162,19 +141,14 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                                     final String longitude = intent.getStringExtra("lon");
                                     final String service = intent.getStringExtra("serv");
                                     final String email = intent.getStringExtra("userEmail");
-                                    //final TextView description = findViewById(R.id.description);
 
                                     EditText textField = findViewById(R.id.description);
 
                                     if (textField.getText().toString().length() > 0) {
                                         String urlAds = uri.toString();
-                                        //Toast.makeText(Description.this, "URL адрес " + urlAds, Toast.LENGTH_SHORT).show();
 
 
                                         FirebaseDatabase.getInstance().getReference().child("Messages").child(MD5.hash(email)).push().setValue(
-                                                /*new Message(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName(),
-                                                        textField.getText().toString(), LATITUDE, LONGITUDE, serv, urlAds
-                                                )*/
                                                 new Message(textField.getText().toString(), email, urlAds, latitude, longitude, service)
                                         );
                                     }
@@ -183,7 +157,7 @@ public class Description extends AppCompatActivity implements View.OnClickListen
                             });
 
 
-                            Toast.makeText(Description.this, "Ваше сообщение отправлено с изображением", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Description.this, getString(R.string.successSending), Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent(Description.this, MainActivity.class);
                             finish();
                         }

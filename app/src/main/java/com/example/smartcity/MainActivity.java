@@ -37,11 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton settingsButton;
     WebView web;
 
-    private static final String TAG = "MainActivity";
-
     private String EMAIL = null;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,30 +96,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         web.setWebViewClient(webViewClient);
-
-        /*if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Intent intent = new Intent(this, SignInActivity.class);
-            startActivity(intent);
-                    //AuthUI.getInstance().createSignInIntentBuilder().build(),
-                    //SIGN_IN_REQUEST_CODE
-        } else {
-            Toast.makeText(this,
-                    getString(R.string.welcome) + FirebaseAuth.getInstance()
-                            .getCurrentUser()
-                            .getEmail(),
-                    Toast.LENGTH_LONG)
-                    .show();
-        }*/
     }
 
     public void checkUserAuthentication(){
-        Log.e(TAG, "checkUserAuthentication()");
         Intent intent = getIntent();
         if(intent.getStringExtra("userEmail") != null){
-            Log.e(TAG, "EMAIL != null");
             EMAIL = intent.getStringExtra("userEmail");
         }else {
-            Log.e(TAG, "EMAIL == null");
             startAuthentication();
         }
     }
@@ -163,19 +142,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*@Override
-    public void onStart(){
-        super.onStart();
-        //Аутентификация
-        Log.e(TAG, "Проверка аутентификации в onStart");
-        checkUserAuthentication();
-    }*/
-
     @Override
     protected void onResume() {
         super.onResume();
         //Аутентификация
-        Log.e(TAG, "Проверка аутентификации в onResume");
         checkUserAuthentication();
     }
 }
